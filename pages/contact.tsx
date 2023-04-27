@@ -34,7 +34,7 @@ const ContactPage = () => {
         setEmail('');
         setMessage('');
     } else {
-        alert(`メールの送信に失敗しました。エラー: ${data.error}`);
+        alert(`メールの送信に失敗しました。エラー: ${JSON.stringify(data.error)}`);
     }
   };
 
