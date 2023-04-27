@@ -13,15 +13,33 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (!recaptchaValue) {
       alert('reCAPTCHAの確認を行ってください。');
       return;
     }
+  
+    // APIルートを呼び
+    // APIルートを呼び出し、メールを送信
+    const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, message }),
+    });
 
-    // ここでAPIを呼び出して、お問い合わせ内容を送信します。
-    alert('お問い合わせ内容を送信しました。');
+    const data = await response.json();
+
+    if (response.status === 200) {
+        alert(data.message);
+        setEmail('');
+        setMessage('');
+    } else {
+        alert(`メールの送信に失敗しました。エラー: ${data.error}`);
+    }
   };
+
+    
+  
 
   return (
     <div>
