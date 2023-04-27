@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ReCAPTCHA, { ReCAPTCHAChangeEvent } from 'react-google-recaptcha';
 
-const RECAPTCHA_SITE_KEY = '6Ld7fsMlAAAAAE3q1OUKCovTNfq6ICzJPMoMJQ68'; // 上で取得したサイトキーを入力
+const RECAPTCHA_SITE_KEY = '6LceiMMlAAAAAO5n26Uk_6lZkSUqZ-lTQRH9EmY4'; // 上で取得したサイトキーを入力
 
 const ContactPage = () => {
   const [email, setEmail] = useState('');
