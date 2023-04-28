@@ -22,14 +22,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // お問い合わせメールの内容
     const mailOptions = {
       from: email,
-      to: 'freelancernoaccont@gmail.com',
+      to: 'info@test-server00.xyz',
       subject: 'お問い合わせ',
       text: message,
     };
 
     // 自動返信メールの内容
     const autoReplyOptions = {
-      from: 'freelancernoaccont@gmail.com',
+      from: 'info@test-server00.xyz',
       to: email,
       subject: 'お問い合わせありがとうございます',
       text: 'お問い合わせいただきありがとうございます。追ってご連絡差し上げます。',
