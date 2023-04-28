@@ -12,7 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Nodemailerの設定
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'sv10720.xserver.jp',
+      port: 465, // もしくは 465, 25 など
+      secure: true, // SSL/TLS を使用する場合は `true` に設定
       auth: {
         user: GMAIL_USER, // 送信元のGmailアドレス
         pass: GMAIL_PASS, // 送信元のGmailパスワード
