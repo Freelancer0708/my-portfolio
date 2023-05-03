@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`
+    body: `secret=6LceiMMlAAAAAG6JIgCc70A5xP7I06YS41dL6vit&response=${recaptchaResponse}`
   });
 
   const data = await response.json();
