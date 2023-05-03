@@ -26,6 +26,7 @@ a {
 }
 
 /* コンテナにマージンとパディングを適用 */
+.contact-container ,
 .container {
   max-width: 1200px;
   margin: 0 auto;
