@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Configure mail transporter
   const transporter = nodemailer.createTransport({
     host: "sv10720.xserver.jp",
-    port: 587,
+    port: 465,
     secure: false,
     auth: {
       user: process.env.EMAIL_USER,
