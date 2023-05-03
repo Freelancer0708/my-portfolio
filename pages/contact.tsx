@@ -19,6 +19,7 @@ const Contact = () => {
 
     if (response.ok) {
       alert("メールが送信されました。ありがとうございます！");
+      setName("");
       setEmail("");
       setMessage("");
     } else {
