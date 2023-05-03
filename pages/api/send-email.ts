@@ -18,14 +18,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       await transporter.sendMail({
         from: email,
-        to: "info@test-server00.xyz",
+        to: "info@system-yourself.com",
         subject: `New message from ${name}`,
         text: message,
       });
 
       // 自動返信
       await transporter.sendMail({
-        from: "info@test-server00.xyz",
+        from: "info@system-yourself.com",
         to: email,
         subject: "Thank you for contacting us",
         text: `Dear ${name},\n\nThank you for contacting us. We have received your message and will get back to you shortly.\n\nBest regards,\nYour Company`,
