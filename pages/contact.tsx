@@ -1,10 +1,10 @@
-// contact.tsx
-import React, { useState } from "react";
+import { useState } from 'react';
 
 const Contact = () => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +28,20 @@ const Contact = () => {
   };
 
   return (
-    <div className="container">
-      <h1>お問い合わせフォーム</h1>
+    <div className="contact-container">
+      <h1>お問い合わせ</h1>
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">お名前</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="email">メールアドレス</label>
           <input
@@ -61,4 +72,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
