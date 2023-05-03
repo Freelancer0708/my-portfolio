@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
 const Contact = () => {
   const [name, setName] = useState('');
@@ -68,6 +69,8 @@ const Contact = () => {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit">送信</button>
       </form>
+
+      <Link href="/">Home</Link>
     </div>
   );
 };
