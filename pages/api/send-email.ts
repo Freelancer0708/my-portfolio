@@ -7,8 +7,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const transporter = nodemailer.createTransport({
       host: "sv10720.xserver.jp",
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -16,29 +16,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     try {
+      // 管理者へのメール
       await transporter.sendMail({
         from: email,
-        to: "info@system-yourself.com",
-        subject: `New message from ${name}`,
-        text: message,
+        to: process.env.EMAIL_USER,
+        subject: "お問い合わせが届きました",
+        text: `お名前: ${name}\nメールアドレス: ${email}\n\nメッセージ:\n${message}`,
       });
 
-      // 自動返信
+      // 自動返信メール
       await transporter.sendMail({
-        from: "info@system-yourself.com",
+        from: process.env.EMAIL_USER,
         to: email,
-        subject: "Thank you for contacting us",
-        text: `Dear ${name},\n\nThank you for contacting us. We have received your message and will get back to you shortly.\n\nBest regards,\nYour Company`,
+        subject: "お問い合わせありがとうございます",
+        text: `${name} 様\n\nお問い合わせいただきありがとうございます。\n担当者が確認次第、返信させていただきます。\n\n以下、お問い合わせ内容の確認です。\n\nお名前: ${name}\nメールアドレス: ${email}\n\nメッセージ:\n${message}\n\n- System Yourself`,
       });
 
-      res.status(200).send("Email sent successfully.");
+      res.status(200).json({ message: "メールが送信されました。" });
     } catch (error) {
-      console.error("Error sending email:", error);
-      res.status(500).send("Error sending email.");
+    res.status(500).json({ message: "メールの送信に失敗しました。", error });
     }
-  } else {
-    res.status(405).send("Method not allowed.");
-  }
-};
-
-export default handler;
+    } else {
+    res.status(405).json({ message: "許可されていないリクエストメソッドです。" });
+    }
+    };
+    
+    export default handler;
