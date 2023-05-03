@@ -14,7 +14,7 @@ const Contact = () => {
     const response = await fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, message }),
+      body: JSON.stringify({name, email, message }),
     });
 
     if (response.ok) {
