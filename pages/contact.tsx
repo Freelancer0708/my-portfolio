@@ -1,97 +1,71 @@
-import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import React, { useState } from "react";
 
-const Contact: React.FC = () => {
-  const [formState, setFormState] = useState({
-    email: '',
-    message: '',
-    recaptchaResponse: '',
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
+  const [message, setMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRecaptcha = (value: string) => {
-    setFormState((prev) => ({ ...prev, recaptchaResponse: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!formState.recaptchaResponse) {
-      alert('reCAPTCHAのチェックが必要です。');
-      return;
-    }
+    setMessage("Sending...");
 
     try {
-      // Verify reCAPTCHA
-      const recaptchaRes = await fetch('/api/verify-recaptcha', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ recaptchaResponse: formState.recaptchaResponse }),
-      });
-
-      if (!recaptchaRes.ok) {
-        alert('reCAPTCHAの検証に失敗しました。もう一度お試しください。');
-        return;
-      }
-
-      // Send email
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: formState.email, message: formState.message }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        alert('メールが正常に送信されました。');
-        setFormState({ email: '', message: '', recaptchaResponse: '' });
+        setMessage("Email sent successfully!");
       } else {
-        const data = await response.json();
-        alert(`メールの送信に失敗しました。エラー: ${JSON.stringify(data.error)}`);
+        setMessage(`Email failed to send: ${await response.text()}`);
       }
     } catch (error) {
-      console.error(error);
-      alert('通信エラーが発生しました。');
+      setMessage(`Error sending email: ${error.toString()}`);
     }
   };
 
   return (
     <div>
-      <h1>お問い合わせフォーム</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          メールアドレス（必須）:
-          <input
-            type="email"
-            name="email"
-            value={formState.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          お問い合わせ内容（必須）:
-          <textarea
-            name="message"
-            value={formState.message}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </label>
-        <br />
-        <ReCAPTCHA sitekey="6LceiMMlAAAAAO5n26Uk_6lZkSUqZ-lTQRH9EmY4" onChange={handleRecaptcha} />
-        <button type="submit">送信</button>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        ></textarea>
+        <button type="submit">Send</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };
 
-export default Contact;
+export default ContactForm;
