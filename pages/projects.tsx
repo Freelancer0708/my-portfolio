@@ -1,11 +1,13 @@
-import Link from 'next/link';
+import Header from '../components/Header';
 
 const ProjectsPage = () => {
   return (
     <div>
-      <h1>My Projects</h1>
-      <p>ここにプロジェクトのリストを書いてください。</p>
-      <Link href="/">Home</Link>
+      <Header />
+      <div className="container">
+        <h1>My Projects</h1>
+        <p>ここにプロジェクトのリストを書いてください。</p>
+      </div>
     </div>
   );
 };

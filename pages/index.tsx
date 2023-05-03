@@ -1,16 +1,25 @@
-import Link from 'next/link';
+import Head from 'next/head';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Skills from '../components/Skills';
+import Projects from '../components/Projects';
+import Footer from '../components/Footer';
 
-const IndexPage = () => {
+export default function Home() {
   return (
     <div>
-      <h1>My Portfolio</h1>
-      <nav>
-        <Link href="/about">About</Link>
-        <Link href="/projects">Projects</Link>
-        <Link href="/contact">Contact</Link>
-      </nav>
+      <Head>
+        <title>フロントエンドエンジニアのポートフォリオ</title>
+        <meta name="description" content="フロントエンドエンジニアのポートフォリオサイト" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Header />
+      <div className="container">
+        <Hero />
+        <Skills />
+        <Projects />
+        <Footer />
+      </div>
     </div>
   );
-};
-
-export default IndexPage;
+}

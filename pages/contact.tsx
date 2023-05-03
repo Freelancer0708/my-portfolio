@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Link from 'next/link';
+import Header from '../components/Header';
 
 const Contact = () => {
   const [name, setName] = useState('');
@@ -30,7 +30,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-container">
+    <div>
+      <Header />
+<div className="contact-container">
       <h1>お問い合わせ</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -69,9 +71,10 @@ const Contact = () => {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit">送信</button>
       </form>
-
-      <Link href="/">Home</Link>
     </div>
+    
+    </div>
+    
   );
 };
 
