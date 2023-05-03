@@ -87,7 +87,7 @@ const Contact: React.FC = () => {
           ></textarea>
         </label>
         <br />
-        <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleRecaptcha} />
+        <ReCAPTCHA sitekey="6LceiMMlAAAAAO5n26Uk_6lZkSUqZ-lTQRH9EmY4" onChange={handleRecaptcha} />
         <button type="submit">送信</button>
       </form>
     </div>
